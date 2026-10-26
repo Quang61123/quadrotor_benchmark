@@ -1,0 +1,261 @@
+{
+  "plant": {
+    "m": 0.468,
+    "J": [
+      0.004856,
+      0.004856,
+      0.008801
+    ],
+    "l": 0.225,
+    "g": 9.81,
+    "kf": 2.98e-06,
+    "km": 1.14e-07,
+    "tau_m": 0.03,
+    "omega_max": 1000.0,
+    "drag": [
+      0.25,
+      0.25,
+      0.25
+    ],
+    "I_M": 3.357e-05,
+    "rotor_convention": "plus_configuration_yaw_torque_signs_-1_+1_-1_+1"
+  },
+  "dt": 0.02,
+  "substeps": 4,
+  "duration": 20.0,
+  "seed": 20261007,
+  "mc_samples": 12,
+  "PID": {
+    "kp": [
+      2.5,
+      2.5,
+      4
+    ],
+    "kd": [
+      3,
+      3,
+      3.5
+    ],
+    "ki": [
+      0.4,
+      0.4,
+      1
+    ],
+    "att_kp": [
+      64,
+      64,
+      36
+    ],
+    "att_kd": [
+      16,
+      16,
+      12
+    ],
+    "filter_tau": 0.03,
+    "integral_limit": 2.0
+  },
+  "LQR": {
+    "Q": [
+      12,
+      12,
+      20,
+      5,
+      5,
+      8,
+      20,
+      20,
+      10,
+      1,
+      1,
+      1
+    ],
+    "R": [
+      0.3,
+      3,
+      3,
+      3
+    ]
+  },
+  "SMC": {
+    "lambda_pos": [
+      1.8,
+      1.8,
+      2.5
+    ],
+    "k_pos": [
+      1.2,
+      1.2,
+      1.8
+    ],
+    "boundary_pos": [
+      0.3,
+      0.3,
+      0.25
+    ],
+    "lambda_att": [
+      6,
+      6,
+      4
+    ],
+    "k_att": [
+      5,
+      5,
+      3
+    ],
+    "boundary_att": [
+      0.5,
+      0.5,
+      0.5
+    ]
+  },
+  "MPC": {
+    "N": 25,
+    "Q": [
+      12,
+      12,
+      20,
+      5,
+      5,
+      8,
+      20,
+      20,
+      10,
+      1,
+      1,
+      1
+    ],
+    "R": [
+      0.3,
+      3,
+      3,
+      3
+    ],
+    "S": [
+      0.2,
+      0.8,
+      0.8,
+      0.8
+    ],
+    "du_max": [
+      0.5,
+      0.03,
+      0.03,
+      0.02
+    ],
+    "eps": 1e-05,
+    "max_iter": 4000,
+    "attitude_max": 0.45,
+    "preview": true,
+    "adaptive_rho_interval": 50,
+    "physical_tolerances": {
+      "rotor_N": 0.001,
+      "increment": [
+        0.001,
+        0.0001,
+        0.0001,
+        0.0001
+      ],
+      "tilt_rad": 0.0001
+    }
+  },
+  "scenarios": {
+    "step_time": 3.0,
+    "step_target": [
+      2,
+      2,
+      1.5
+    ],
+    "circle_radius": 1.0,
+    "circle_omega": 0.35,
+    "figure8_A": 1.0,
+    "figure8_B": 0.7,
+    "figure8_C": 0.2,
+    "figure8_omega": 0.35,
+    "figure8_vertical_omega": 0.25,
+    "wind_interval": [
+      6,
+      12
+    ],
+    "wind_force": [
+      1,
+      0.5,
+      0
+    ],
+    "gust_interval": [
+      6,
+      8
+    ],
+    "gust_force": [
+      2,
+      1,
+      0
+    ],
+    "stochastic_sigma": 0.5,
+    "stochastic_tau": 0.3,
+    "C1_omega_max": 650.0,
+    "C2_speed_slew": 600.0,
+    "mc_mass_bounds": [
+      0.8,
+      1.2
+    ],
+    "mc_inertia_bounds": [
+      0.8,
+      1.2
+    ],
+    "mc_thrust_bounds": [
+      0.85,
+      1.15
+    ],
+    "smooth_duration": 4.0
+  },
+  "failure": {
+    "position_error_max": 10.0,
+    "attitude_max": 1.2
+  },
+  "sensitivity": {
+    "smc_vertical_gains": [
+      1.8,
+      2.4,
+      3.0
+    ],
+    "smc_boundary_scales": [
+      0.5,
+      1.0,
+      2.0
+    ],
+    "mpc_horizons": [
+      15,
+      25,
+      40
+    ],
+    "mpc_rate_scales": [
+      0.5,
+      1.0,
+      2.0
+    ]
+  },
+  "delay": {
+    "policy": "discard_late_and_hold_last_accepted_generalized_command",
+    "periodic_every": 10,
+    "burst_start": 3.0,
+    "burst_end": 3.1,
+    "late_ms": 30.0,
+    "on_time_ms": 5.0,
+    "state_policy": "commit_computed_PID_filter_integrator_and_solver_workspace; overwrite_saturation_with_applied_allocation; reset_MPC_previous_to_accepted_request"
+  },
+  "corner": {
+    "mass": [
+      0.8,
+      1.2
+    ],
+    "inertia": [
+      0.8,
+      1.2
+    ],
+    "thrust": [
+      0.85,
+      1.15
+    ],
+    "inertia_mode": "all_three_axes_share_multiplier"
+  }
+}
